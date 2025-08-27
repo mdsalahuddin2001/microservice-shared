@@ -19,7 +19,7 @@
   "author": "Md Salahuddin",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/mdsalahuddin2001/microservice-shared.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
