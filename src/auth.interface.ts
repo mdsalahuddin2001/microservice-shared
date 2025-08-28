@@ -20,6 +20,7 @@ export interface IAuth {
   country?: string;
   profilePicture?: string;
 }
+
 export interface IAuthDocument {
   id?: number;
   profilePublicId?: string;
