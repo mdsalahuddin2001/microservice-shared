@@ -1,8 +1,12 @@
 {
   "version": "0.0.7",
   "license": "MIT",
-  "types": "./src/index.d.ts",
   "description": "Helpers library for Jobber app",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
     "clean": "del ./build/*",
     "build": "npm run clean && tsc && node scripts/build-package.js"
@@ -23,9 +27,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "files": [
-    "build/**/*"
-  ],
   "dependencies": {
     "@elastic/elasticsearch": "^8.13.0",
     "cloudinary": "^2.1.0",
