@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "description": "Helpers library for Jobber app",
   "main": "./build/index.js",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del ./build/*",
-    "build": "npm run clean && tsc && node scripts/build-package.js"
+    "build": "node init && npm run clean && tsc && node scripts/build-package.js"
   },
   "prettier": {
     "printWidth": 80,
