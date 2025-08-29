@@ -1,17 +1,29 @@
 import winston, { Logger } from 'winston';
-import { ElasticsearchTransformer, ElasticsearchTransport, LogData, TransformedData } from 'winston-elasticsearch';
+import {
+  ElasticsearchTransformer,
+  ElasticsearchTransport,
+  LogData,
+  TransformedData,
+} from 'winston-elasticsearch';
 
 const esTransformer = (logData: LogData): TransformedData => {
   return ElasticsearchTransformer(logData);
-}
+};
 
-export const winstonLogger = (elasticsearchNode: string, name: string, level: string): Logger => {
+export const winstonLogger = (
+  elasticsearchNode: string,
+  name: string,
+  level: string
+): Logger => {
   const options = {
     console: {
       level,
       handleExceptions: true,
       json: false,
-      colorize: true
+      format: winston.format.combine(
+        winston.format.colorize({ all: true }), // ✅ This enables colors
+        winston.format.simple() // or winston.format.json() if you prefer
+      ),
     },
     elasticsearch: {
       level,
@@ -21,15 +33,18 @@ export const winstonLogger = (elasticsearchNode: string, name: string, level: st
         log: level,
         maxRetries: 2,
         requestTimeout: 10000,
-        sniffOnStart: false
-      }
-    }
+        sniffOnStart: false,
+      },
+    },
   };
-  const esTransport: ElasticsearchTransport = new ElasticsearchTransport(options.elasticsearch);
+
+  const esTransport: ElasticsearchTransport = new ElasticsearchTransport(
+    options.elasticsearch
+  );
   const logger: Logger = winston.createLogger({
     exitOnError: false,
     defaultMeta: { service: name },
-    transports: [new winston.transports.Console(options.console), esTransport]
+    transports: [new winston.transports.Console(options.console), esTransport],
   });
   return logger;
-}
+};
